@@ -27,14 +27,15 @@ export const Moves = (props: MovesProps) => {
         list: []
     }
 
-
+    console.log(initialState);
     const [loading, setLoading] = useState(true);
     const [moves, setMoves] = useState(initialState);
     const [typeFilter, setTypeFilter] = useState("");
 
     useEffect(()=>{
-        //setMoves(initialState);
+        setMoves(initialState);
         props.moves.forEach((move) => fetchMoveData(move));
+
     },[]);
 
     const fetchMoveData = (move: any) => {
@@ -58,6 +59,11 @@ export const Moves = (props: MovesProps) => {
         .catch((err)=> console.log(err));
     }
 
+    const onLoadMoves = () => {
+        setMoves(initialState);
+        props.moves.forEach((move) => fetchMoveData(move));
+    }
+
     const onFilterChanged = (event: any) => {
         setTypeFilter(event.target.value);
     }
@@ -67,6 +73,7 @@ export const Moves = (props: MovesProps) => {
         {
             loading && <div>Loading</div>
         }
+        <button onClick={onLoadMoves}>Load moves</button>
         <select id="type" onChange={onFilterChanged}>
             <option value="">All</option>
             <option value="fire">Fire</option>
