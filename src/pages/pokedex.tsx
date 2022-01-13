@@ -9,8 +9,9 @@ export const Pokedex = () => {
     const [loadMoreUrl, setLoadMoreUrl] = useState("");
 
     useEffect(() => {
-        fetch("https://pokeapi.co/api/v2/pokemon/").then(async (res) => {
-            const data = await res.json();
+        fetch("https://pokeapi.co/api/v2/pokemon/")
+        .then((res) => res.json())
+        .then((data)=>{
             setPokemonCount(data.count);
             setPokemonList(data.results);
             setLoadMoreUrl(data.next);
@@ -19,8 +20,9 @@ export const Pokedex = () => {
 
     const onloadMore = () => {
         if (loadMoreUrl){
-            fetch(loadMoreUrl).then(async (res) => {
-                const data = await res.json();
+            fetch(loadMoreUrl)
+            .then((res) => res.json())
+            .then((data)=>{
                 setPokemonList((prevState)=> {
                     return prevState.concat(data.results)
                 });

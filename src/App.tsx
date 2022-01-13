@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Pokedex />} />
         <Route path="pokedex" element={<Pokedex />} />
         <Route path="pokemon/:name" element={<PokemonDetail />} />
       </Routes>
