@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Move } from "./Move"
+
+import { MovesFilter } from "./MovesFilter";
+import { MovesTable } from "./MovesTable";
 
 export type MovesProps = {
     moves : any[]
@@ -27,10 +29,12 @@ export const Moves = (props: MovesProps) => {
         list: []
     }
 
-    console.log(initialState);
     const [loading, setLoading] = useState(true);
     const [moves, setMoves] = useState(initialState);
     const [typeFilter, setTypeFilter] = useState("");
+    const [searchText, setSearchText] = useState("");
+    const [sortField, setSortField] = useState("");
+    const [sortDirection, setSortDirection] = useState("asc");
 
     useEffect(()=>{
         setMoves(initialState);
@@ -68,36 +72,69 @@ export const Moves = (props: MovesProps) => {
         setTypeFilter(event.target.value);
     }
 
+    const onSearchTextChanged = (event: any) => {
+        setSearchText(event.target.value);
+    }
+
+    const onSortClicked = (sort: string) => {
+        let direction = "asc";
+
+        if(sortField == sort){
+            direction = (sortDirection === "asc") ? "desc" : "asc";
+        }
+        setSortDirection(direction);
+        setSortField(sort);
+    }
+
+    const filterMoveList = () => {
+        const filterList = moves.list.filter((item) => 
+                                (typeFilter == "" || item.type == typeFilter) &&
+                                (searchText === "" || item.name.includes(searchText)))
+
+        if(sortField){
+            return filterList.sort(dynamicSort(sortField, sortDirection));
+        }
+
+        return filterList;
+    }
+
+    const dynamicSort = (key:string, order="asc") => {
+        return (a: any, b: any) => {
+            if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+              // property doesn't exist on either object
+              return 0;
+            }
+        
+            const varA = (typeof a[key] === 'string') ? a[key].toUpperCase() : a[key];
+            const varB = (typeof b[key] === 'string') ? b[key].toUpperCase() : b[key];
+        
+            let comparison = 0;
+            if (varA > varB) {
+              comparison = 1;
+            } else if (varA < varB) {
+              comparison = -1;
+            }
+            return (
+              (order === 'desc') ? (comparison * -1) : comparison
+            );
+        };
+    }
+
     return <div>
         <h3>Moves:</h3>
         {
             loading && <div>Loading</div>
         }
         <button onClick={onLoadMoves}>Load moves</button>
-        <select id="type" onChange={onFilterChanged}>
-            <option value="">All</option>
-            <option value="fire">Fire</option>
-            <option value="normal">Normal</option>
-            <option value="flying">Flying</option>
-            <option value="steel">Steel</option>
-            <option value="water">Water</option>
-        </select>
-        <table>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>type</th>
-                    <th>power</th>
-                    <th>accuracy</th>
-                </tr>
-            </thead>
-            <tbody>
-                {moves.list.filter((item) => typeFilter == "" || item.type == typeFilter ).map(move => 
-                    <Move key={move.id} {...move}></Move>
-                )}
-            </tbody>
-        </table>
+        
+        <MovesFilter 
+            onSearchTextChanged={onSearchTextChanged}
+            onFilterChanged={onFilterChanged } 
+        />
+
+        <MovesTable 
+            onSortClicked={onSortClicked}
+            moves={filterMoveList()}/>
 
     </div>
 }
