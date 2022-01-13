@@ -33,7 +33,7 @@ export const Moves = (props: MovesProps) => {
     const [typeFilter, setTypeFilter] = useState("");
 
     useEffect(()=>{
-        setMoves(initialState);
+        //setMoves(initialState);
         props.moves.forEach((move) => fetchMoveData(move));
     },[]);
 
@@ -54,7 +54,8 @@ export const Moves = (props: MovesProps) => {
             setMoves((prevState: MoveState) => { 
                 return { list: [...prevState.list, moveInfo] }
             });
-        });
+        })
+        .catch((err)=> console.log(err));
     }
 
     const onFilterChanged = (event: any) => {
