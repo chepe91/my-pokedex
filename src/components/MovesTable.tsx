@@ -2,9 +2,6 @@ import React from "react"
 import { Move } from "./Move"
 export const MovesTable = (props: any) => {
 
-
-
-
     return (
         <table>
             <thead>

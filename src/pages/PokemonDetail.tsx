@@ -19,7 +19,7 @@ export const PokemonDetail = () => {
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then(async (res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         const data = await res.json();
 
         setPokemonId(data.id);
@@ -28,11 +28,11 @@ export const PokemonDetail = () => {
         setAbilities(data.abilities);
         setMoves(data.moves);
         setTypes(data.types);
-      } else if (res.status == 404) {
+      } else if (res.status === 404) {
         setNotFound(true);
       }
     });
-  }, []);
+  }, [name]);
 
   return (
     <div>
@@ -42,7 +42,7 @@ export const PokemonDetail = () => {
           <h2>
             Pokemon #{pokemonId} {pokemonName}
           </h2>
-          <img src={image} className="pokemon-image" />
+          <img src={image} className="pokemon-image" alt={name} />
           <div>
             <Types types={types} />
             <Abilities abilities={abilities} />
