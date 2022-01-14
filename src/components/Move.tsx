@@ -1,9 +1,8 @@
 import React from "react";
 
-import { MoveInfo } from "./moves"
+import { Move as MoveInfo } from "./Moves";
 
 export const Move = (props: MoveInfo) => {
-
     return (
         <tr key={props.id}>
             <td>{props.id}</td>
@@ -18,3 +17,4 @@ export const Move = (props: MoveInfo) => {
         </tr>
     )
 }
+

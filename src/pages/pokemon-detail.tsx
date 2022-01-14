@@ -48,6 +48,7 @@ export const PokemonDetail = () => {
                     <Moves moves={moves} />
                 </div>
             </div>
+            
         }
     </div>);
 }
