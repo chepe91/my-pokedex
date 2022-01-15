@@ -49,31 +49,6 @@ export const Moves = (props: MovesProps) => {
     });
   }, [props.moves]);
 
-  // const fetchMoveData = (move: any) => {
-  //   fetch(move.move.url)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const moveInfo: Move = {
-  //         id: data.id,
-  //         name: data.name,
-  //         names: data.names,
-  //         accuracy: data.accuracy,
-  //         power: data.power,
-  //         type: data.type.name,
-  //         pp: data.pp,
-  //         damage_class: data.damage_class.name,
-  //       };
-  //       setMoves((prevState: Move[]) => {
-  //         return [...prevState, moveInfo];
-  //       });
-  //     })
-  //     .catch(console.error);
-  // };
-
-  // const onLoadMoves = () => {
-  //   props.moves.forEach((move) => fetchMoveData(move));
-  // };
-
   const onFilterChanged = (event: any) => {
     setTypeFilter(event.target.value);
   };
