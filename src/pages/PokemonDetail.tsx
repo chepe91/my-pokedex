@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { NotFound } from "../components/NotFound";
-import { Types } from "../components/types";
+import { Types } from "../components/Types";
 import { Abilities } from "../components/Abilities";
 import { Moves } from "../components/Moves";
 
