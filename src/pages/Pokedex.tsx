@@ -21,8 +21,11 @@ export const Pokedex = () => {
       .then((data) => {
         setPokemonCount(data.count);
         setLoadMoreUrl(data.next);
-        Promise.all(data.results.map((pokemon: any) => fetchPokemonData(pokemon))).then(() => {
-      
+        Promise.all(data.results.map((pokemon: any) => fetchPokemonData(pokemon)))
+        .then((responses) => {
+          setPokemonList((prevState: PokemonData[]) => {
+            return [...prevState, ...responses];
+          });
         });
       });
   }, []);
@@ -32,10 +35,12 @@ export const Pokedex = () => {
       fetch(loadMoreUrl)
         .then((res) => res.json())
         .then((data) => {
-          
           setLoadMoreUrl(data.next);
-          Promise.all(data.results.map((pokemon: any) => fetchPokemonData(pokemon))).then(() => {
-            
+          Promise.all(data.results.map((pokemon: any) => fetchPokemonData(pokemon)))
+          .then((responses) => {
+            setPokemonList((prevState: PokemonData[]) => {
+              return [...prevState, ...responses];
+            });
           });
         });
     }
@@ -50,10 +55,7 @@ export const Pokedex = () => {
       types: data.types
     };
 
-    console.log(pokemonData);
-    setPokemonList((prevState: PokemonData[]) => {
-      return [...prevState, pokemonData];
-    });
+    return pokemonData;
   }
 
 
