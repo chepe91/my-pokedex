@@ -1,0 +1,16 @@
+
+
+.pokemon-list {
+    display: flex;
+    flex-flow: row wrap;
+    position: relative;
+}
+
+.pokemon-info {
+    margin:15px;
+}
+
+.pokemon-info img {
+    width: 100px;
+    height: 100px;
+}

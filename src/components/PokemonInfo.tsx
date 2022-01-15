@@ -1,16 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./PokemonInfo.css";
+import { PokemonData } from "./PokemonList";
 
-export type PokemonInfoProps = {
-    pokemon: any
-}
 
-export const PokemonInfo = (props: PokemonInfoProps) => {
+
+export const PokemonInfo = (props: PokemonData) => {
 
     return (
         <div className="pokemon-info">
-            <Link to={`/pokemon/${props.pokemon.name}`}>
-                {props.pokemon.name}
+
+            <div>
+                <img src={`/images/pokemon/${props.format_id}.png`} alt={props.format_id} />
+            </div>
+            <Link to={`/pokemon/${props.name}`}>
+                {props.name}
             </Link>
         </div>
     )
