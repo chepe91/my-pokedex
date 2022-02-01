@@ -46,7 +46,7 @@ export const PokemonDetail = () => {
           <div>
             <Types types={types} />
             <Abilities abilities={abilities} />
-            <Moves moves={moves} />
+            {moves.length > 0 && <Moves moves={moves} /> }
           </div>
         </div>
       )}
